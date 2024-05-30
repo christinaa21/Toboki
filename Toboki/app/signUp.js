@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { Link } from "expo-router";
-// import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
-// import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-
-// GoogleSignin.configure({
-//   webClientId: 'YOUR_GOOGLE_WEB_CLIENT_ID',
-//   offlineAccess: true,
-// });
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
@@ -17,28 +10,8 @@ const LoginScreen = () => {
     // Perform login logic here
     console.log('Username:', username);
     console.log('Password:', password);
-    return <Link to="/home"/>
+    window.location.href = '/home';
   };
-
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     await GoogleSignin.signIn();
-  //     const user = await GoogleSignin.getCurrentUser();
-  //     console.log('Google Sign In Success:', user);
-  //   } catch (error) {
-  //     console.error('Google Sign In Error:', error);
-  //   }
-  // };
-
-  // const handleFacebookSignIn = async () => {
-  //   try {
-  //     await LoginManager.logInWithPermissions(['public_profile', 'email']);
-  //     const accessToken = await AccessToken.getCurrentAccessToken();
-  //     console.log('Facebook Sign In Success:', accessToken);
-  //   } catch (error) {
-  //     console.error('Facebook Sign In Error:', error);
-  //   }
-  // };
 
   return (
     <ImageBackground source={require('../assets/login.png')} style={styles.container}>
@@ -60,15 +33,12 @@ const LoginScreen = () => {
           onChangeText={setPassword}
         />
 
-        <TouchableOpacity style={styles.button} onClick={handleLogin}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
-        <Text style={styles.signupText}>Belum memiliki akun?
-          <Link href="/signUp">
-            <Text style={styles.signupLink}>SIGN UP</Text>
-          </Link>
-        </Text>
+        <Text style={styles.signupText}>Belum memiliki akun? <Text style={styles.signupLink} onPress={() => navigation.navigate('signUp')}>SIGN UP</Text></Text>
+
         <Text style={styles.orText}>OR</Text>
 
         <View style={styles.googleFacebook}>
