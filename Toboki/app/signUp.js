@@ -1,56 +1,80 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import { Link } from "expo-router";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image} from 'react-native';
+// import {CheckBox} from '@react-native-community/checkbox'
+import { Link, useRouter } from "expo-router";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [nama, setNama] = useState('');
+  const [email, setEmail] = useState('');
+  const router = useRouter();
+  const [isSelected, setSelection] = useState(false);
 
-  const handleLogin = () => {
+  const handleSignUp = () => {
     // Perform login logic here
     console.log('Username:', username);
     console.log('Password:', password);
-    window.location.href = '/home';
+    console.log('nama:', nama);
+    console.log('email:', email);
+    console.log('isSelected:', isSelected);
+    router.push('/personalisasi');
   };
 
   return (
     <ImageBackground source={require('../assets/login.png')} style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Selamat Datang!</Text>
-        <Text style={styles.text}>Silakan login untuk mengakses ratusan buku dan berinteraksi dengan komunitas!</Text>
+        <Text style={styles.title}>Buat Akun</Text>
+        <Text style={styles.text}>Ayo bergabung dengan Toboki sekarang!</Text>
 
         <TextInput
           style={styles.input}
-          placeholder="Masukkan username"
+          placeholder="Masukkan Nama"
+          value={nama}
+          onChangeText={setNama}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Masukkan Username"
           value={username}
           onChangeText={setUsername}
         />
         <TextInput
           style={styles.input}
-          placeholder="Masukkan password"
+          placeholder="Masukkan Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Masukkan Password"
           secureTextEntry={true}
           value={password}
           onChangeText={setPassword}
         />
+        <TextInput
+          style={styles.input}
+          placeholder="Verifikasi Password"
+          secureTextEntry={true}
+        />
+        {/* <View style={styles.checkboxContainer}>
+            <CheckBox
+            value={isSelected}
+            onValueChange={setSelection}
+            style={styles.checkbox}
+            />
+            <Text style={styles.label}>Saya telah membaca dan menyetujui kebijakan privasi</Text>
+        </View> */}
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+          <Text style={styles.buttonText}>Daftar</Text>
         </TouchableOpacity>
 
-        <Text style={styles.signupText}>Belum memiliki akun? <Text style={styles.signupLink} onPress={() => navigation.navigate('signUp')}>SIGN UP</Text></Text>
-
-        <Text style={styles.orText}>OR</Text>
-
-        <View style={styles.googleFacebook}>
-          <Image
-            source={require('../assets/Google.png')}
-            style={styles.googleFacebookButton}
-          />
-          <Image
-            source={require('../assets/Facebook.png')}
-            style={styles.googleFacebookButton}
-          />
-        </View>
+        <Text style={styles.signupText}>Sudah memiliki akun? 
+          <Link href="/">
+            <Text style={styles.signupLink}> Log In</Text>
+          </Link>
+        </Text>
       </View>
     </ImageBackground>
   );
@@ -112,25 +136,15 @@ const styles = StyleSheet.create({
     color: '#6678B7',
     fontWeight: 'bold',
   },
-  orText: {
-    fontSize: 16,
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  facebookButton: {
-    backgroundColor: '#3b5998',
-    padding: 15,
-    borderRadius: 5,
-    marginBottom: 15,
-  },
-  googleFacebook: {
-    flex:1,
+  checkboxContainer: {
     flexDirection: 'row',
-    alignSelf:'center',
+    marginBottom: 20,
   },
-  googleFacebookButton: {
-    marginLeft: 10,
-    marginRight: 10,
+  checkbox: {
+    alignSelf: 'center',
+  },
+  label: {
+    margin: 8,
   }
 });
 

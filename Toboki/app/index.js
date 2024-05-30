@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 // import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 // import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
@@ -12,12 +12,13 @@ import { Link } from "expo-router";
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleLogin = () => {
     // Perform login logic here
     console.log('Username:', username);
     console.log('Password:', password);
-    return <Link to="/home"/>
+    router.push('/home');
   };
 
   // const handleGoogleSignIn = async () => {
@@ -60,13 +61,13 @@ const LoginScreen = () => {
           onChangeText={setPassword}
         />
 
-        <TouchableOpacity style={styles.button} onClick={handleLogin}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
-        <Text style={styles.signupText}>Belum memiliki akun?
+        <Text style={styles.signupText}>Belum memiliki akun? 
           <Link href="/signUp">
-            <Text style={styles.signupLink}>SIGN UP</Text>
+            <Text style={styles.signupLink}> SIGN UP</Text>
           </Link>
         </Text>
         <Text style={styles.orText}>OR</Text>

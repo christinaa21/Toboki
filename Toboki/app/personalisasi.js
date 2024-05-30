@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  ImageBackground
 } from 'react-native';
 
 const App = () => {
@@ -24,7 +25,7 @@ const App = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../assets/personalisasi.png')} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Halo, User!</Text>
         <Text style={styles.headerSubtext}>
@@ -126,18 +127,13 @@ const App = () => {
           <Text style={styles.buttonText}>Lewati</Text>
         </TouchableOpacity>
       </View>
-      <Image
-        source={require('../assets/personalisasi.png')} // Replace with your background image path
-        style={styles.backgroundImage}
-      />
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   header: {
     padding: 20,
