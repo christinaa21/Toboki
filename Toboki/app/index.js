@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#4A5C9C'
   },
   content: {
     backgroundColor: 'rgba(255, 255, 255, 1)',
@@ -103,7 +104,9 @@ const styles = StyleSheet.create({
     shadowColor:'black', 
     shadowOpacity:0.25,
     shadowRadius: 4,
-    shadowOffset: {width: 0, height: 4}
+    shadowOffset: {width: 0, height: 4},
+    width: 314,
+    elevation: 5,
   },
   title: {
     fontSize: 32,
@@ -155,8 +158,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   googleFacebook: {
-    flex:1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '50%',
     alignSelf:'center',
   },
   googleFacebookButton: {
