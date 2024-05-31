@@ -1,132 +1,84 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  ImageBackground
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { Link, useRouter } from "expo-router";
 
-const App = () => {
-  const [selectedGenres, setSelectedGenres] = useState([]);
+const genres = {
+  fiksi: ['Novel', 'Romantis', 'Fantasi', 'Puisi', 'Horror', 'Fiksi Sejarah'],
+  nonFiksi: ['Pengembangan Diri', 'Biografi', 'Sains', 'Sejarah', 'Psikologi', 'Politik']
+};
 
-  const handleGenreSelection = (genre) => {
+const PersonalisasiScreen = () => {
+  const [selectedFiksi, setSelectedFiksi] = useState([]);
+  const [selectedNonFiksi, setSelectedNonFiksi] = useState([]);
+
+  const toggleSelection = (genre, category) => {
+    const setSelected = category === 'fiksi' ? setSelectedFiksi : setSelectedNonFiksi;
+    const selectedGenres = category === 'fiksi' ? selectedFiksi : selectedNonFiksi;
+
     if (selectedGenres.includes(genre)) {
-      setSelectedGenres(selectedGenres.filter((g) => g !== genre));
-    } else {
-      setSelectedGenres([...selectedGenres, genre]);
+      setSelected(selectedGenres.filter(item => item !== genre));
+    } else if (selectedGenres.length < 3) {
+      setSelected([...selectedGenres, genre]);
     }
-  };
-
-  const handleSave = () => {
-    // Handle save logic here, e.g., send selectedGenres to backend
-    console.log('Selected Genres:', selectedGenres);
   };
 
   return (
     <ImageBackground source={require('../assets/personalisasi.png')} style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Halo, User!</Text>
-        <Text style={styles.headerSubtext}>
-          Bantu kami untuk meningkatkan pengalaman membaca Anda
-          dengan memilih beberapa opsi di bawah ini
-        </Text>
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.sectionTitle}>
-          Genre Buku Apa yang Anda Sukai?
-        </Text>
-        <Text style={styles.sectionSubtitle}>
-          Pilih hingga tiga opsi untuk masing-masing kategori
-        </Text>
-        <View style={styles.genreContainer}>
-          <Text style={styles.genreCategory}>Fiksi</Text>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Novel') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Novel')}
-          >
-            <Text style={styles.genreButtonText}>Novel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Romantis') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Romantis')}
-          >
-            <Text style={styles.genreButtonText}>Romantis</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Fantasi') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Fantasi')}
-          >
-            <Text style={styles.genreButtonText}>Fantasi</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Puisi') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Puisi')}
-          >
-            <Text style={styles.genreButtonText}>Puisi</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Horror') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Horror')}
-          >
-            <Text style={styles.genreButtonText}>Horror</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Fiksi Sejarah') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Fiksi Sejarah')}
-          >
-            <Text style={styles.genreButtonText}>Fiksi Sejarah</Text>
-          </TouchableOpacity>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.content}>
+          <Text style={styles.greeting}>Halo, User!</Text>
+          <Text style={styles.description}>
+            Bantu kami untuk meningkatkan pengalaman membaca Anda dengan memilih beberapa opsi di bawah ini
+          </Text>
+          <Text style={styles.question}>Genre Buku Apa yang Anda Sukai?</Text>
+          <Text style={styles.subText}>Pilih hingga tiga opsi untuk masing-masing kategori</Text>
+          
+          <Text style={styles.category}>Fiksi</Text>
+          <View style={styles.genreContainer}>
+            {genres.fiksi.map(genre => (
+              <TouchableOpacity
+                key={genre}
+                style={[
+                  styles.genreButton,
+                  selectedFiksi.includes(genre) && styles.selectedGenreButton
+                ]}
+                onPress={() => toggleSelection(genre, 'fiksi')}
+              >
+                <Text style={[
+                  styles.genreButtonText,
+                  selectedFiksi.includes(genre) && styles.selectedGenreButtonText
+                ]}>{genre}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <Text style={styles.category}>Nonfiksi</Text>
+          <View style={styles.genreContainer}>
+            {genres.nonFiksi.map(genre => (
+              <TouchableOpacity
+                key={genre}
+                style={[
+                  styles.genreButton,
+                  selectedNonFiksi.includes(genre) && styles.selectedGenreButton
+                ]}
+                onPress={() => toggleSelection(genre, 'nonFiksi')}
+              >
+                <Text style={[
+                  styles.genreButtonText,
+                  selectedNonFiksi.includes(genre) && styles.selectedGenreButtonText
+                ]}>{genre}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <Link href="/personalisasiKomunitas">
+            <TouchableOpacity style={styles.saveButton}>
+                <Text style={styles.saveButtonText}>Simpan</Text>
+            </TouchableOpacity>
+          </Link>
+
+          <Text style={styles.skipText}>Lewati</Text>
         </View>
-        <View style={styles.genreContainer}>
-          <Text style={styles.genreCategory}>Nonfiksi</Text>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Pengembangan Diri') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Pengembangan Diri')}
-          >
-            <Text style={styles.genreButtonText}>Pengembangan Diri</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Biografi') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Biografi')}
-          >
-            <Text style={styles.genreButtonText}>Biografi</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Sains') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Sains')}
-          >
-            <Text style={styles.genreButtonText}>Sains</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Sejarah') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Sejarah')}
-          >
-            <Text style={styles.genreButtonText}>Sejarah</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Psikologi') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Psikologi')}
-          >
-            <Text style={styles.genreButtonText}>Psikologi</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.genreButton, selectedGenres.includes('Politik') && styles.selectedButton]}
-            onPress={() => handleGenreSelection('Politik')}
-          >
-            <Text style={styles.genreButtonText}>Politik</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.buttonText}>Simpan</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.skipButton} onPress={() => console.log('Skip pressed')}>
-          <Text style={styles.buttonText}>Lewati</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -135,90 +87,81 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    padding: 20,
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2196F3',
-  },
-  headerSubtext: {
-    fontSize: 16,
-    color: '#616161',
-    marginTop: 10,
-    textAlign: 'center',
   },
   content: {
     padding: 20,
-    flex: 1,
+    width: '90%',
+    marginTop: 25,
+    marginBottom: 25
   },
-  sectionTitle: {
+  greeting: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#4A5C9C',
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  question: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  sectionSubtitle: {
-    fontSize: 16,
-    color: '#616161',
+  subText: {
+    fontSize: 14,
     marginBottom: 20,
   },
-  genreContainer: {
-    marginBottom: 20,
-  },
-  genreCategory: {
-    fontSize: 18,
+  category: {
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
   },
+  genreContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
   genreButton: {
-    padding: 12,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
-    marginBottom: 10,
-    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 10,
+    margin: 5,
   },
-  selectedButton: {
-    backgroundColor: '#2196F3',
-    borderColor: '#2196F3',
+  selectedGenreButton: {
+    backgroundColor: '#4A5C9C',
+    borderColor: '#4A5C9C',
   },
   genreButtonText: {
-    fontSize: 16,
-    color: '#2196F3',
+    color: '#4A5C9C',
   },
-  footer: {
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  selectedGenreButtonText: {
+    color: '#fff',
   },
   saveButton: {
-    backgroundColor: '#2196F3',
-    padding: 12,
-    borderRadius: 5,
-    flex: 1,
-    marginRight: 10,
+    backgroundColor: '#6678B7',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
   },
-  skipButton: {
-    backgroundColor: '#ccc',
-    padding: 12,
-    borderRadius: 5,
-    flex: 1,
-  },
-  buttonText: {
+  saveButtonText: {
     color: '#fff',
-    fontSize: 16,
     textAlign: 'center',
+    fontSize: 18,
   },
-  backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    resizeMode: 'cover',
+  skipText: {
+    color: '#4A5C9C',
+    textAlign: 'center',
+    fontSize: 14,
+    marginTop: 10,
   },
 });
 
-export default App;
+export default PersonalisasiScreen;

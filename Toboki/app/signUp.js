@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ImageBackground, Image, ScrollView} from 'react-native';
 // import {CheckBox} from '@react-native-community/checkbox'
 import { Link, useRouter } from "expo-router";
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [nama, setNama] = useState('');
@@ -23,6 +23,7 @@ const LoginScreen = () => {
 
   return (
     <ImageBackground source={require('../assets/login.png')} style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
       <View style={styles.content}>
         <Text style={styles.title}>Buat Akun</Text>
         <Text style={styles.text}>Ayo bergabung dengan Toboki sekarang!</Text>
@@ -76,6 +77,7 @@ const LoginScreen = () => {
           </Link>
         </Text>
       </View>
+    </ScrollView>
     </ImageBackground>
   );
 };
@@ -83,6 +85,12 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#4A5C9C'
+  },
+  scrollContainer: {
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -93,10 +101,13 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     marginTop:160,
+    marginBottom:50,
     shadowColor:'black', 
     shadowOpacity:0.25,
     shadowRadius: 4,
-    shadowOffset: {width: 0, height: 4}
+    shadowOffset: {width: 0, height: 4},
+    width: 314,
+    elevation: 5,
   },
   title: {
     fontSize: 32,
@@ -148,4 +159,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default SignUpScreen;
