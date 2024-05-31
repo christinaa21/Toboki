@@ -10,6 +10,7 @@ const genres = {
 const PersonalisasiScreen = () => {
   const [selectedFiksi, setSelectedFiksi] = useState([]);
   const [selectedNonFiksi, setSelectedNonFiksi] = useState([]);
+  const router = useRouter();
 
   const toggleSelection = (genre, category) => {
     const setSelected = category === 'fiksi' ? setSelectedFiksi : setSelectedNonFiksi;
@@ -21,6 +22,10 @@ const PersonalisasiScreen = () => {
       setSelected([...selectedGenres, genre]);
     }
   };
+
+  const handleSave = () => {
+    router.push('/personalisasiKomunitas');
+  }
 
   return (
     <ImageBackground source={require('../assets/personalisasi.png')} style={styles.container}>
@@ -70,13 +75,14 @@ const PersonalisasiScreen = () => {
               </TouchableOpacity>
             ))}
           </View>
-          <Link href="/personalisasiKomunitas">
-            <TouchableOpacity style={styles.saveButton}>
-                <Text style={styles.saveButtonText}>Simpan</Text>
-            </TouchableOpacity>
-          </Link>
 
-          <Text style={styles.skipText}>Lewati</Text>
+          <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
+            <Text style={styles.saveButtonText}>Simpan</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleSave}>
+            <Text style={styles.skipText}>Lewati</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </ImageBackground>
@@ -150,6 +156,8 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 15,
+    width: '100%',
+    alignItems: 'center',
   },
   saveButtonText: {
     color: '#fff',
