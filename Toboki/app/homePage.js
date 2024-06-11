@@ -8,7 +8,7 @@ const posts = [
     userhandle: '@furelise',
     time: '05 Mei 2024 • 7:08 PM',
     content: 'This is my best read ever! The emotion, the plot, everything is just great. You guys should read it too! It\'s called TCGF by Mo Xiang Tong Xiu',
-    imageUrl: '../assets/post1.png'
+    imageUrl: '../assets/login.png'
   },
   {
     id: '2',
@@ -27,7 +27,9 @@ const HomePage = () => {
       <Text style={styles.userhandle}>{item.userhandle}</Text>
       <Text style={styles.time}>{item.time}</Text>
       <Text style={styles.content}>{item.content}</Text>
-      {item.imageUrl ? <Image source={require(item.imageUrl)} style={styles.image} /> : null}
+      {item.imageUrl ? (
+        <Image source={item.imageUrl} style={styles.image} />
+      ) : null}
     </View>
   );
 
