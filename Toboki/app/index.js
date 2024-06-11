@@ -70,7 +70,7 @@ const LoginScreen = () => {
             <Text style={styles.signupLink}> SIGN UP</Text>
           </Link>
         </Text>
-        <Text style={styles.orText}>OR</Text>
+        {/* <Text style={styles.orText}>OR</Text>
 
         <View style={styles.googleFacebook}>
           <Image
@@ -81,7 +81,7 @@ const LoginScreen = () => {
             source={require('../assets/Facebook.png')}
             style={styles.googleFacebookButton}
           />
-        </View>
+        </View> */}
       </View>
     </ImageBackground>
   );

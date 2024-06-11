@@ -6,7 +6,11 @@ const PersonalisasiKomunitasScreen = () => {
   const router = useRouter();
 
   const handleSave = () => {
-    router.push('/navigation/MainContainer');
+    router.push('/homePage');
+  }
+
+  const handleBack = () => {
+    router.push('/personalisasi')
   }
 
   return (
@@ -37,10 +41,14 @@ const PersonalisasiKomunitasScreen = () => {
               <Text style={styles.joinButtonText}>Buat Komunitas</Text>
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity onPress={handleSave}>
-            <Text style={styles.skipText}>Lewati</Text>
-          </TouchableOpacity>
+          <View style={styles.row}>
+            <TouchableOpacity onPress={handleBack}>
+                <Text style={styles.skipText}>Sebelumnya</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleSave}>
+              <Text style={styles.skipText}>Lewati</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </ImageBackground>
@@ -99,6 +107,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     marginTop: 10,
+    textDecorationLine: "underline",
+    marginHorizontal: 72
   },
   communityContainer: {
     alignItems: 'center',
@@ -106,7 +116,7 @@ const styles = StyleSheet.create({
   },
   communityImage: {
     width: 300,
-    height: 200,
+    height: 160,
     resizeMode: 'contain',
   },
   joinButton: {
@@ -119,6 +129,11 @@ const styles = StyleSheet.create({
   joinButtonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
 });
 

@@ -108,38 +108,38 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#4A5C9C',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   description: {
     fontSize: 16,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   question: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   subText: {
     fontSize: 14,
-    marginBottom: 20,
+    marginBottom: 8,
   },
   category: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   genreContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 8,
   },
   genreButton: {
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 20,
-    padding: 10,
-    margin: 5,
+    padding: 8,
+    margin: 6,
   },
   selectedGenreButton: {
     backgroundColor: '#4A5C9C',
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     marginTop: 10,
+    textDecorationLine: "underline"
   },
 });
 
