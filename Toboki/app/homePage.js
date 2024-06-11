@@ -8,7 +8,7 @@ const posts = [
     userhandle: '@furelise',
     time: '05 Mei 2024 • 7:08 PM',
     content: 'This is my best read ever! The emotion, the plot, everything is just great. You guys should read it too! It\'s called TCGF by Mo Xiang Tong Xiu',
-    imageUrl: '../assets/login.png'
+    imageUrl: 'https://drive.google.com/uc?export=view&id=1PN1gTkHsEMWqz6f5E8-LoiHx7VQjleJR'
   },
   {
     id: '2',
@@ -27,9 +27,11 @@ const HomePage = () => {
       <Text style={styles.userhandle}>{item.userhandle}</Text>
       <Text style={styles.time}>{item.time}</Text>
       <Text style={styles.content}>{item.content}</Text>
-      {item.imageUrl ? (
-        <Image source={item.imageUrl} style={styles.image} />
-      ) : null}
+      <View style={styles.imgContainer}>
+        {item.imageUrl ? (
+          <Image source={{ uri: item.imageUrl }} style={styles.image} />
+        ) : null}
+      </View>
     </View>
   );
 
@@ -73,10 +75,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   image: {
-    width: '100%',
-    height: 200,
+    width: '80%',
+    height: 350,
     borderRadius: 10,
   },
+  imgContainer: {
+    alignContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default HomePage;
