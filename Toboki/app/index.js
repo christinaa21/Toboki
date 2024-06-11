@@ -18,7 +18,7 @@ const LoginScreen = () => {
     // Perform login logic here
     console.log('Username:', username);
     console.log('Password:', password);
-    router.push('/home');
+    router.push('/navigation/MainContainer');
   };
 
   // const handleGoogleSignIn = async () => {

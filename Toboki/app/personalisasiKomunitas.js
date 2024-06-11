@@ -6,7 +6,7 @@ const PersonalisasiKomunitasScreen = () => {
   const router = useRouter();
 
   const handleSave = () => {
-    router.push('/home');
+    router.push('/navigation/MainContainer');
   }
 
   return (
